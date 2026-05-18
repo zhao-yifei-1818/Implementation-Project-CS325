@@ -18,7 +18,7 @@ def read_arrays_from_file(filename):
     return arrays
 
 
-def closest_to_zero_enumeration(arr):
+def enumeration(arr):
 
     best_sum = float("inf")
 
@@ -46,7 +46,7 @@ if __name__ == "__main__":
 
     for index, arr in enumerate(arrays):
 
-        best_sum, best_subarray = closest_to_zero_enumeration(arr)
+        best_sum, best_subarray = enumeration(arr)
 
         print(f"Test Case {index + 1}")
         print("Closest sum to 0:", best_sum)
