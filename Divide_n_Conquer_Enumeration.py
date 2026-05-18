@@ -94,12 +94,55 @@ def close_to_zero(arr):
 
 if __name__ == "__main__":
 
-    for size in range (100,1000,100):
-        clock_start = time.time()
-        for size2 in range (1,10,1):
-            close_to_zero(gen_array(size))
-        clock_end = time.time()
-        print(clock_end-clock_start)
+    # 100,200,...,900
+    for size in range(100, 1000, 100):
+
+        total_time = 0
+
+        for i in range(10):
+
+            # generate random array
+            arr = gen_array(size)
+
+            # start clock
+            clock_start = time.time()
+
+            # run algorithm
+            close_to_zero(arr)
+
+            # stop clock
+            clock_end = time.time()
+
+            # save elapsed time
+            elapsed_time = clock_end - clock_start
+
+            total_time += elapsed_time
+
+        # average of 10 runs
+        average_time = total_time / 10
+
+        print(size, average_time)
 
 
+    # 1000,2000,...,9000
+    for size in range(1000, 10000, 1000):
 
+        total_time = 0
+
+        for i in range(10):
+
+            arr = gen_array(size)
+
+            clock_start = time.time()
+
+            close_to_zero(arr)
+
+            clock_end = time.time()
+
+            elapsed_time = clock_end - clock_start
+
+            total_time += elapsed_time
+
+        average_time = total_time / 10
+
+        print(average_time)

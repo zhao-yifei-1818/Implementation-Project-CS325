@@ -30,7 +30,7 @@ def gen_array(size):
     return arr
 
 
-def betterEmumeration(arr):
+def betterEnumeration(arr):
     best_sum = float("inf")
     best_subarray = []
 
@@ -50,21 +50,33 @@ def betterEmumeration(arr):
 
 if __name__ == "__main__":
 
-    for size in range (100,1000,100):
+    # 100,200,...,900
+    for size in range(100, 1000, 100):
+
         clock_start = time.time()
-        for size2 in range (1,10,1):
-            betterEmumeration(gen_array(size))
-            clock_end = time.time()
-        print(clock_end-clock_start)
-'''
-    arrays = read_arrays_from_file("test.txt")
 
-    for index, arr in enumerate(arrays):
+        for i in range(10):
+            arr = gen_array(size)
+            betterEnumeration(arr)
 
-        best_sum, best_subarray = betterEmumeration(arr)
+        clock_end = time.time()
 
-        print(f"Test Case {index + 1}")
-        print("Closest sum to 0:", best_sum)
-        print("Subarray:", best_subarray)
-        print()
-'''
+        average_time = (clock_end - clock_start) / 10
+
+        print(size, average_time)
+
+
+    # 1000,2000,...,9000
+    for size in range(1000, 10000, 1000):
+
+        clock_start = time.time()
+
+        for i in range(10):
+            arr = gen_array(size)
+            betterEnumeration(arr)
+
+        clock_end = time.time()
+
+        average_time = (clock_end - clock_start) / 10
+
+        print(average_time)
