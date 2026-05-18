@@ -1,3 +1,5 @@
+import time
+import random
 import ast
 
 """
@@ -18,6 +20,14 @@ def read_arrays_from_file(filename):
                 arrays.append(arr)
 
     return arrays
+def gen_array(size):
+    arr = []
+
+    for i in range(size):
+        num = random.randint(-100, 100)
+        arr.append(num)
+
+    return arr
 
 
 def betterEmumeration(arr):
@@ -40,6 +50,13 @@ def betterEmumeration(arr):
 
 if __name__ == "__main__":
 
+    for size in range (100,1000,100):
+        clock_start = time.time()
+        for size2 in range (1,10,1):
+            betterEmumeration(gen_array(size))
+            clock_end = time.time()
+        print(clock_end-clock_start)
+'''
     arrays = read_arrays_from_file("test.txt")
 
     for index, arr in enumerate(arrays):
@@ -50,3 +67,4 @@ if __name__ == "__main__":
         print("Closest sum to 0:", best_sum)
         print("Subarray:", best_subarray)
         print()
+'''

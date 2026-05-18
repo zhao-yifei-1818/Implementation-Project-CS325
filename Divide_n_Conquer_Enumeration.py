@@ -94,26 +94,12 @@ def close_to_zero(arr):
 
 if __name__ == "__main__":
 
-    # size = get_size()
-    
-    # A = gen_array(size)
     for size in range (100,1000,100):
         clock_start = time.time()
         for size2 in range (1,10,1):
             close_to_zero(gen_array(size))
         clock_end = time.time()
         print(clock_end-clock_start)
-    '''
-    A = read_arrays_from_file("test.txt")
 
-    for index, arr in enumerate(A):
-
-        best_sum, best_subarray = close_to_zero(arr)
-
-        print(f"Test Case {index + 1}")
-        print("Closest sum to 0:", best_sum)
-        print("Subarray:", best_subarray)
-        print()
-    '''
 
 
