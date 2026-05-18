@@ -1,6 +1,12 @@
 import time
 import random
 import ast
+
+"""William Zhao
+CS325 Implementation Project
+Algorithm 1 Enumeration"""
+
+
 def gen_array(size):
     arr = []
 
@@ -9,24 +15,9 @@ def gen_array(size):
         arr.append(num)
 
     return arr
-def read_arrays_from_file(filename):
-
-    arrays = []
-
-    with open(filename, "r") as file:
-
-        for line in file:
-
-            line = line.strip()
-
-            if line:
-
-                arr = ast.literal_eval(line)
-                arrays.append(arr)
-
-    return arrays
 
 
+# Algorithm 1
 def enumeration(arr):
 
     best_sum = float("inf")
@@ -44,15 +35,16 @@ def enumeration(arr):
                 best_i = i
                 best_j = j
 
-    best_subarray = arr[best_i:best_j + 1]
+    best_subarray = arr[best_i : best_j + 1]
 
     return abs(best_sum), best_subarray
 
 
 if __name__ == "__main__":
+    # time took for 100-900, average from 10 tries
     for size in range(100, 1000, 100):
         clock_start = time.perf_counter()
         for size2 in range(1, 10, 1):
             enumeration(gen_array(size))
-        clock_end = time.perf_counter()  
+        clock_end = time.perf_counter()
         print(clock_end - clock_start)
