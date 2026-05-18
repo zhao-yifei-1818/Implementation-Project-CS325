@@ -50,10 +50,9 @@ def enumeration(arr):
 
 
 if __name__ == "__main__":
-
-    for size in range (100,1000,100):
-        clock_start = time.time()
-        for size2 in range (1,10,1):
+    for size in range(100, 1000, 100):
+        clock_start = time.perf_counter()
+        for size2 in range(1, 10, 1):
             enumeration(gen_array(size))
-            clock_end = time.time()
-        print(clock_end-clock_start)
+        clock_end = time.perf_counter()  
+        print(clock_end - clock_start)
