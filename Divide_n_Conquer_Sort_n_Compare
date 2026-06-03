@@ -33,69 +33,91 @@ def get_size():
 
 def solve(arr, start, end):
 
-    # base case 1 element
     if start == end:
         return (arr[start], start, end)
-    # divide by 2
+
     mid = (start + end) // 2
 
-    # Recursive
     left_result = solve(arr, start, mid)
     right_result = solve(arr, mid + 1, end)
 
-    # Enumeration,theta n^2
+    # Algorithm 4 cross case:
+    # closest subarray crosses the middle:
+    # suffix from left half + prefix from right half
 
-    # placeholder for cross_result(sum,start,end)
+    values = []
+
+    # all suffix sums from left half
+    suffix_sum = 0
+    for i in range(mid, start - 1, -1):
+        suffix_sum += arr[i]
+        values.append((suffix_sum, "S", i, mid))
+
+    # all negative prefix sums from right half
+    prefix_sum = 0
+    for j in range(mid + 1, end + 1):
+        prefix_sum += arr[j]
+        values.append((-prefix_sum, "P", mid + 1, j))
+
+    # sort all suffix sums and negative prefix sums
+    values.sort(key=lambda x: x[0])
+
     best_cross_sum = float("inf")
     best_cross_start = 0
     best_cross_end = 0
-    left_sum = 0
-    # walk backward from mid to left
 
-    for i in range(mid, start - 1, -1):
-        # every combination of:
-        left_sum += arr[i]  # get the left index total
-        right_sum = (0) # when i move left, recalculate, do this by set it to 0 every time
-        for j in range(mid + 1, end + 1):
-            right_sum += arr[j]
-            total = left_sum + right_sum
-            # if any total found is better than infinity or what we have
+    # compare adjacent values only
+    for k in range(len(values) - 1):
+        first = values[k]
+        second = values[k + 1]
+
+        # one must be suffix and one must be prefix
+        if first[1] != second[1]:
+
+            if first[1] == "S":
+                suffix = first
+                prefix = second
+            else:
+                suffix = second
+                prefix = first
+
+            # suffix value is real suffix sum
+            # prefix value was stored as negative prefix sum
+            # so real cross sum = suffix_sum - negative_prefix_sum
+            total = suffix[0] - prefix[0]
+
             if abs(total) < abs(best_cross_sum):
-                # record its sum and indexes if it's a better one
                 best_cross_sum = total
-                best_cross_start = i
-                best_cross_end = j
+                best_cross_start = suffix[2]
+                best_cross_end = prefix[3]
 
     cross_result = (
-        # this is enumeration result at the end
         best_cross_sum,
         best_cross_start,
-        best_cross_end,
+        best_cross_end
     )
 
-    # compare:
     best_result = left_result
+
     if abs(right_result[0]) < abs(best_result[0]):
         best_result = right_result
+
     if abs(cross_result[0]) < abs(best_result[0]):
         best_result = cross_result
 
-    # return (sum,start,end)
     return best_result
 
 
 def close_to_zero(arr):
     if len(arr) == 0:
         return None
+
     best_sum, start, end = solve(arr, 0, len(arr) - 1)
-    return best_sum, arr[start : end + 1]
+
+    return best_sum, arr[start:end + 1]
 
 
 if __name__ == "__main__":
-
-    # size = get_size()
-
-    # A = gen_array(size)
 
     A = read_arrays_from_file("test.txt")
 
