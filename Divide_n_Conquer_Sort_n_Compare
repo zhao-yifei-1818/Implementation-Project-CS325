@@ -1,19 +1,9 @@
 import random
-import ast
+import time
 
-
-def read_arrays_from_file(filename):
-    arrays = []
-
-    with open(filename, "r") as file:
-        for line in file:
-            line = line.strip()
-
-            if line:  # skip empty lines
-                arr = ast.literal_eval(line)
-                arrays.append(arr)
-
-    return arrays
+"""William Zhao
+CS325 Implementation Project
+Algorithm 4 Divide and Conquer Compare"""
 
 
 def gen_array(size):
@@ -108,7 +98,7 @@ def solve(arr, start, end):
     return best_result
 
 
-def close_to_zero(arr):
+def algorithm4(arr):
     if len(arr) == 0:
         return None
 
@@ -119,13 +109,28 @@ def close_to_zero(arr):
 
 if __name__ == "__main__":
 
-    A = read_arrays_from_file("test.txt")
-
-    for index, arr in enumerate(A):
-
-        best_sum, best_subarray = close_to_zero(arr)
-
-        print(f"Test Case {index + 1}")
-        print("Closest sum to 0:", best_sum)
-        print("Subarray:", best_subarray)
-        print()
+    # time take for 100-900, average from 10 tries
+    for size in range(100, 1000, 100):
+        total_time = 0
+        for i in range(10):
+            arr = gen_array(size)
+            clock_start = time.time()
+            algorithm4(arr)
+            clock_end = time.time()
+            elapsed_time = clock_end - clock_start
+            total_time += elapsed_time
+        # average of 10 runs
+        average_time = total_time / 10
+        print(average_time)
+    #     # time take for 1000-9000, average from 10 tries
+    for size in range(1000, 10000, 1000):
+        total_time = 0
+        for i in range(10):
+            arr = gen_array(size)
+            clock_start = time.time()
+            algorithm4(arr)
+            clock_end = time.time()
+            elapsed_time = clock_end - clock_start
+            total_time += elapsed_time
+        average_time = total_time / 10
+        print(average_time)

@@ -1,5 +1,4 @@
 import random
-import ast
 import time
 
 """William Zhao
@@ -46,9 +45,7 @@ def helper(arr, start, end):
         # walk backward from mid to left
         # every combination of:
         left_sum += arr[i]  # get the left index total
-        right_sum = (
-            0  # when i move left, recalculate, do this by set it to 0 every time
-        )
+        right_sum = (0)
         for j in range(mid + 1, end + 1):
             right_sum += arr[j]
             total = left_sum + right_sum
@@ -82,7 +79,7 @@ def algorithm3(arr):
     if len(arr) == 0:
         return None
     best_sum, start, end = helper(arr, 0, len(arr) - 1)
-    return best_sum, arr[start : end + 1]
+    return best_sum, arr[start: end + 1]
 
 
 if __name__ == "__main__":
