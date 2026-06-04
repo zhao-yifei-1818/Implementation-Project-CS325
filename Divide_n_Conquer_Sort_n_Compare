@@ -41,6 +41,8 @@ def solve(arr, start, end):
     suffix_sum = 0
     for i in range(mid, start - 1, -1):
         suffix_sum += arr[i]
+        # index:  [0]        [1]    [2]          [3]
+        # (the value, tag,   left index,  right index)
         values.append((suffix_sum, "S", i, mid))
 
     # all negative prefix sums from right half
@@ -49,7 +51,7 @@ def solve(arr, start, end):
         prefix_sum += arr[j]
         values.append((-prefix_sum, "P", mid + 1, j))
 
-    # sort all suffix sums and negative prefix sums
+    # nlogn sort all suffix sums and negative prefix sums
     values.sort(key=lambda x: x[0])
 
     best_cross_sum = float("inf")
